@@ -1,0 +1,76 @@
+.navbar {
+    border-radius: none !important;
+    border: none !important;
+}
+.navbar-nav li {
+    font-weight: bold;
+    font-size:1.2em;
+}
+.navbar-default {
+    background-color: #5F9EA0;
+}
+.navbar-default .navbar-nav>li>a {
+    color:#fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.blogpost {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom:50px;
+    overflow: hidden;
+}
+
+.img-container {
+    float:left;
+}
+
+.caption {
+    float:right;
+}
+
+#heading {
+    font-size:20px;
+    font-weight: bold;
+    margin-top:0;
+    color: #005E90;
+}
+
+#heading:hover {
+    color: #0090DB;
+}
+
+.description {
+    color: s#3e4855;
+    margin-right:20px;
+    font-weight: bold;
+    margin-top: -2px;
+}
+
+.desc-info {
+    margin-bottom:20px;
+    font-size:12px;
+}
+
+.glyphicon {
+    padding-right:2px;
+}
+
+.post {
+    font-size: 1.1em;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.btn-info {
+    float: right;
+}
+
+#footer {
+    padding: 10px;
+    color: #eee;
+    background-color: #5F9EA0;
+    text-align: center;
+}

@@ -1,0 +1,56 @@
+body {
+    background-color: #2f4050;
+    height:100%;
+}
+
+.navbar {
+    border-radius: none !important;
+    border: none !important;
+}
+.navbar-nav li {
+    font-weight: bold;
+    font-size:1.2em;
+}
+.navbar-default {
+    background-color: #5F9EA0;
+}
+.navbar-default .navbar-nav>li>a {
+    color:#fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.col-sm-10 {
+    background-color: #fff;
+    min-height:92.5%;
+}
+
+#side-menu a {
+    color: #9fb1c2;
+}
+
+#side-menu .active a {
+    color: #fff;
+    background-color: #27AAE1;
+    font-weight: bold;
+}
+
+#side-menu a:hover {
+    color: #fff;
+    background-color: #1ab394;
+    font-weight: bold;
+    display: block;
+}
+
+textarea {
+    min-height:150px;
+}
+
+.backtodash {
+    float: right;
+    margin-top: 20px;
+    font-size: 30px;
+    display: inline-block;
+}
