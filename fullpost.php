@@ -55,11 +55,11 @@
 
         <div class="container">
             <div class="blog-header">
-                <h1>Responsive CMS Blog</h1>
+    
             </div>
             
             <div class="row">
-                <div class="col-sm-8"> <!-- Main area -->
+                <div class="col-sm-offset-2 col-sm-8"> <!-- Main area -->
                     <div> <?php echo message(); echo successMessage(); ?> </div>
                     <?php
                         global $connection;
@@ -107,6 +107,31 @@
                     </div>
 
                     <?php } ?>
+                    <span><h4>Comments</h4></span>
+
+                    <?php 
+                        $connectToDb;
+                        $postID;
+                        $getCommentsQuery = "SELECT * FROM comments WHERE admin_panel_id = '$postID';";
+                        $execute = mysqli_query($connection, $getCommentsQuery);
+                        while($dataRows = mysqli_fetch_array($execute)) {
+                            $commentDate = $dataRows["datetime"];
+                            $commentAge = floor((time() - strtotime($commentDate)) / (60 * 60 * 24));
+                            $commentAuthor = $dataRows["name"];
+                            $comment = $dataRows["comment"];
+                        
+                    ?>
+                    <div class="blogComment">
+                        <div>
+                            <p class="commentAuthor"><?php echo $commentAuthor; ?></p>
+                            <p class="commentAge"><?php if($commentAge > 1) { echo $commentAge . " days ago"; } else { echo " day ago"; } ?></p>
+                        </div>
+                        <div>
+                            <p class="comment"><?php echo $comment; ?></p>
+                        </div>
+                    </div>
+
+                    <?php } ?>
                     <span>Comment on this post!</span>
                     <div>
                         <form action="fullpost.php?id=<?php echo $postID ?>" method="post" enctype="multipart/form-data">
@@ -131,10 +156,6 @@
                         </form>
                     </div>
                 </div> <!-- End of main area -->
-                <div class="col-sm-offset-1 col-sm-3"> <!-- Sidebar -->
-                    <h2>Test Header</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.</p>
-                </div> <!-- End of sidebar -->
             </div> <!-- End of row -->
         </div> <!-- End of main area container -->
     </body>

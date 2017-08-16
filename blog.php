@@ -18,7 +18,7 @@
 
         <div class="container">
             <div class="blog-header">
-                <h1>Responsive CMS Blog</h1>
+                
             </div>
             <div class="row">
                 <div class="col-sm-9"> <!-- Main area -->

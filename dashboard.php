@@ -30,7 +30,6 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <tr>
-                                <th>Number</th>
                                 <th>Post Title</th>
                                 <th>Date Posted</th>
                                 <th>Author</th>
@@ -45,7 +44,6 @@
                                 global $connectToDb;
                                 $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc;";
                                 $execute = mysqli_query($connection,$viewQuery);
-                                $number = 0;
                                 while($dataRows = mysqli_fetch_array($execute)) {
                                     $id = $dataRows["id"];
                                     $dateTime = $dataRows["datetime"];
@@ -54,11 +52,9 @@
                                     $author = $dataRows["author"];
                                     $image = $dataRows["image"];
                                     $post = $dataRows["post"];
-                                    $number++
                             ?>
 
                             <tr>
-                                <td><?php echo $number; ?></td>
                                 <td>
                                     <?php 
                                         if(strlen($title)>20) {
