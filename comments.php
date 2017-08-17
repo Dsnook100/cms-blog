@@ -30,7 +30,7 @@
                     <div class="table-responsive">
                         <table class="table table-stripped table-hover">
                             <tr>
-                                <th>Name</th>
+                                <th>Names</th>
                                 <th>Date</th>
                                 <th>Comment</th>
                                 <th>Approve Comment</th>
