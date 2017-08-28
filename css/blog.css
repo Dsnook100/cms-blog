@@ -1,6 +1,7 @@
 .navbar {
     border-radius: none !important;
     border: none !important;
+    margin-bottom:50px;
 }
 .navbar-nav li {
     font-weight: bold;
@@ -17,9 +18,12 @@
     background-color: #fff;
 }
 
+.main-area {
+    min-height:69.3%;
+}
+
 .blogpost {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 50px;
     margin-bottom:50px;
     overflow: hidden;
     border: none;

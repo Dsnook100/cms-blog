@@ -16,7 +16,7 @@
     <body>
         <?php include ("includes/nav.php"); ?>
 
-        <div class="container">
+        <div class="container main-area">
             <div class="blog-header">
                 
             </div>
@@ -32,8 +32,32 @@
                                           OR title LIKE '%$search%' 
                                           OR category LIKE '%$search%'
                                           OR post LIKE '%$search%'";
+                        } else if(isset($_GET["category"])) {
+                            $category = $_GET["category"];
+                            $viewQuery = "SELECT * FROM admin_panel
+                                          WHERE category LIKE '%$category%' ";
+
+                        } else if (isset($_GET["page"])) {
+                            $page = $_GET["page"];
+
+                            if($page <= 0) {
+                                $showPost = 0;
+                            } else {
+                                $showPost = ($page * 3) - 3;  
+                            }
+
+                            $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc LIMIT $showPost,3";
+
                         } else {
-                            $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc";
+                            $page = 1;
+                            
+                            if($page <= 0) {
+                                $showPost = 0;
+                            } else {
+                                $showPost = ($page * 3) - 3;  
+                            }
+
+                            $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc LIMIT $showPost,3";
                         }
 
                         $execute = mysqli_query($connection, $viewQuery);
@@ -56,7 +80,7 @@
                                 <span class="glyphicon glyphicon-time"></span>
                                 <?php 
                                     if(strlen($dateTime)>12) {
-                                        $dateTime = substr($dateTime,0,12);
+                                        $dateTime = substr($dateTime,0,strpos($dateTime, ' '));
                                     }
                                     echo htmlentities($dateTime); 
                                 ?>
@@ -92,12 +116,100 @@
                     <?php } ?>
                 </div> <!-- End of main area -->
                 <div class="col-sm-3"> <!-- Sidebar -->
-                    <h2>Test Header</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Categories</h2>
+                        </div>
+                        <div class="panel-body">
+                            <?php
+                                $connection;
+
+                                $viewQuery = "SELECT * FROM category";
+                                $execute = mysqli_query($connection, $viewQuery);
+                                while($dataRows = mysqli_fetch_array($execute)) {
+                                    $id = $dataRows['id'];
+                                    $category = $dataRows['name'];
+                            ?>
+                            <a href="blog.php?category=<?php echo $category; ?>"><span id="heading" style="font-size:14px;"><?php echo $category ?></span></a><br>
+
+                            <?php } ?>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Posts</h2>
+                        </div>
+                        <div class="panel-body">
+                            <?php
+                                $connection;
+                                $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc LIMIT 0,5";
+                                $execute = mysqli_query($connection, $viewQuery);
+                                while($dataRows = mysqli_fetch_array($execute)) {
+                                    $id = $dataRows['id'];
+                                    $title = $dataRows['title'];
+                                    $datetime = $dataRows['datetime'];
+                            ?>
+                            <a href="fullpost.php?id=<?php echo $id; ?>"><p id="heading" style="font-size:14px;"><?php echo htmlentities($title); ?></p></a>
+
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div> <!-- End of sidebar -->
             </div> <!-- End of row -->
         </div> <!-- End of main area container -->
 
+
+        <nav style="text-align: center;">
+                <ul class="pagination pagination-lg">
+                    <?php
+                        if(isset($page)) {
+                            if($page > 1) {
+                    ?>
+                        <li><a href="blog.php?page=<?php echo $page - 1; ?>">&lsaquo;</a></li>
+                    <?php 
+                            } 
+                        } 
+                    ?>
+
+                    <?php 
+                        global $connection;
+
+                        $queryPagination = "SELECT COUNT(*) FROM admin_panel";
+                        $execute = mysqli_query($connection, $queryPagination);
+                        $row = mysqli_fetch_array($execute);
+                        $totalPosts = array_shift($row);
+
+                        $pages = ceil($totalPosts / 3);
+
+                        for($i=1; $i <= $pages; $i++) {
+                            if(isset($page)) {    
+                                if($i == $page) {
+                    ?>
+                    
+                        <li class="active"><a href="blog.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>  
+
+                    <?php
+                                } else {
+                    ?>
+
+                        <li><a href="blog.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                    
+                    <?php 
+                                } 
+                            }
+                        }
+                        if(isset($page)) {
+                            if($page < $pages) {
+                    ?>
+                        <li><a href="blog.php?page=<?php echo $page + 1; ?>">&rsaquo;</a></li>
+                    <?php 
+                            } 
+                        } 
+                    ?>
+                </ul>
+            </nav>
         <div id="footer">
             <hr><p>Example Blog with CMS - &copy; 2017 Douglas Snook</p>
             <a style="color:white;text-decoration:none;cursor:pointer;font-weight:bold;" href="https://dougsnook.com"></a>

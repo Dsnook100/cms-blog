@@ -10,7 +10,7 @@
         <li class="<?php if ($urlEnd=="addnewpost.php") {echo "active"; } else  {echo "noactive";}?>"><a href="addnewpost.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Add New Post</a></li>
         <li class="<?php if ($urlEnd=="categories.php") {echo "active"; } else  {echo "noactive";}?>"><a href="categories.php"><span class="glyphicon glyphicon-tags"></span>&nbsp;Categories</a></li>
         <li class="<?php if ($urlEnd=="admins.php") {echo "active"; } else  {echo "noactive";}?>"><a href="admins.php"><span class="glyphicon glyphicon-user"></span>&nbsp;Manage Admins</a></li>
-        <li class="<?php if ($urlEnd=="comments.php") {echo "active"; } else  {echo "noactive";}?>"><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;Comments</a></li>
+        <li class="<?php if ($urlEnd=="comments.php") {echo "active"; } else  {echo "noactive";}?>"><a href="comments.php"><span class="glyphicon glyphicon-comment"></span>&nbsp;Comments</a></li>
         <li><a href="blog.php" target="_blank"><span class="glyphicon glyphicon-equalizer"></span>&nbsp;Live Blog</a></li>
         <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
 

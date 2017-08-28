@@ -13,7 +13,7 @@
 
         date_default_timezone_set('America/New_York');
         $currentTime = time();
-        $dateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
+        $dateTime = strftime("%m-%d-%Y %I:%M %p",$currentTime);
 
         if(empty($name) || empty($email) || empty($comment)) {
             $_SESSION["ErrorMessage"] = "All fields must be filled out.";
@@ -59,7 +59,7 @@
             </div>
             
             <div class="row">
-                <div class="col-sm-offset-2 col-sm-8"> <!-- Main area -->
+                <div class="col-sm-9"> <!-- Main area -->
                     <div> <?php echo message(); echo successMessage(); ?> </div>
                     <?php
                         global $connection;
@@ -98,11 +98,11 @@
                         ?>
             
 
-                        <div class="caption">
+                        <div>
                             <h1 id="heading"><?php echo htmlentities($title); ?></h1>
                             <p class="description">Category: <?php echo htmlentities($category); ?></p>
                             <p class="description">Published on: <?php echo htmlentities($dateTime); ?></p>
-                            <p class="post"><?php echo $post; ?> </p>
+                            <p class="post"><?php echo nl2br($post); ?> </p>
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@
                     <?php 
                         $connectToDb;
                         $postID;
-                        $getCommentsQuery = "SELECT * FROM comments WHERE admin_panel_id = '$postID';";
+                        $getCommentsQuery = "SELECT * FROM comments WHERE admin_panel_id = '$postID' AND status = 'approved';";
                         $execute = mysqli_query($connection, $getCommentsQuery);
                         while($dataRows = mysqli_fetch_array($execute)) {
                             $commentDate = $dataRows["datetime"];
@@ -132,7 +132,6 @@
                     </div>
 
                     <?php } ?>
-                    <span>Comment on this post!</span>
                     <div>
                         <form action="fullpost.php?id=<?php echo $postID ?>" method="post" enctype="multipart/form-data">
                             <fieldset>
@@ -156,6 +155,48 @@
                         </form>
                     </div>
                 </div> <!-- End of main area -->
+                <div class="col-sm-3"> <!-- Sidebar -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Categories</h2>
+                        </div>
+                        <div class="panel-body">
+                            <?php
+                                $connection;
+
+                                $viewQuery = "SELECT * FROM category";
+                                $execute = mysqli_query($connection, $viewQuery);
+                                while($dataRows = mysqli_fetch_array($execute)) {
+                                    $id = $dataRows['id'];
+                                    $category = $dataRows['name'];
+                            ?>
+                            <a href="blog.php?category=<?php echo $category; ?>"><span id="heading" style="font-size:14px;"><?php echo $category ?></span></a><br>
+
+                            <?php } ?>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Recent Posts</h2>
+                        </div>
+                        <div class="panel-body">
+                            <?php
+                                $connection;
+                                $viewQuery = "SELECT * FROM admin_panel ORDER BY datetime desc LIMIT 0,5";
+                                $execute = mysqli_query($connection, $viewQuery);
+                                while($dataRows = mysqli_fetch_array($execute)) {
+                                    $id = $dataRows['id'];
+                                    $title = $dataRows['title'];
+                                    $datetime = $dataRows['datetime'];
+                            ?>
+                            <a href="fullpost.php?id=<?php echo $id; ?>"><p id="heading" style="font-size:14px;"><?php echo htmlentities($title); ?></p></a>
+
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div> <!-- End of sidebar -->
             </div> <!-- End of row -->
         </div> <!-- End of main area container -->
     </body>

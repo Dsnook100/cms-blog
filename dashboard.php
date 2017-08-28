@@ -65,8 +65,8 @@
                                 </td>
                                 <td>
                                     <?php 
-                                        if(strlen($dateTime)>12) {
-                                            $dateTime = substr($dateTime,0,12);
+                                        if(strlen($dateTime)>20) {
+                                            $dateTime = substr($dateTime,0,strpos($dateTime, ' '));
                                         }
                                         echo $dateTime; 
                                     ?>

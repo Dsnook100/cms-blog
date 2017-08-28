@@ -35,12 +35,12 @@
                                 <th>Comment</th>
                                 <th>Approve Comment</th>
                                 <th>Delete Comment</th>
-                                <th>Details</th>
+                                <th>Blog Post</th>
                             </tr>
                             <?php 
                                 $connection;
                                 $connectToDb;
-                                $query = "SELECT * FROM comments WHERE status='waiting'";
+                                $query = "SELECT * FROM comments WHERE status='waiting' ORDER BY datetime desc";
                                 $execute = mysqli_query($connection, $query);
                                 while($dataRows = mysqli_fetch_array($execute)){
                                     $commentID = $dataRows['id'];
@@ -48,15 +48,22 @@
                                     $commentAuthor = $dataRows['name'];
                                     $comment = $dataRows['comment'];
                                     $commentPostId = $dataRows['admin_panel_id'];
+
+                                    if(strlen($comment) > 15) {
+                                        $comment = substr($comment, 0, 15). '...';
+                                    }
+                                    if(strlen($commentAuthor) > 10) {
+                                        $commentAuthor = substr($commentAuthor, 0, 10). '...';
+                                    }
                             ?>
 
                             <tr>
                                 <td><?php echo htmlentities($commentAuthor); ?></td>
                                 <td><?php echo htmlentities($commentDate); ?></td>
                                 <td><?php echo htmlentities($comment); ?></td>
-                                <td><a href="#"><span class="btn btn-success">Approve</span></a></td>
-                                <td><a href="#"><span class="btn btn-danger">Delete</span></a></td>
-                                <td><a href="#"><span class="btn btn-primary">Live Preview</span></a></td>
+                                <td><a href="approvecomments.php?id=<?php echo $commentID ?>"><span class="btn btn-success">Approve</span></a></td>
+                                <td><a href="deletecomments.php?id=<?php echo $commentID ?>"><span class="btn btn-danger">Delete</span></a></td>
+                                <td><a href="fullpost.php?id=<?php echo $commentPostId ?>" target="_blank"><span class="btn btn-primary">View Article</span></a></td>
                             
                             </tr>
 

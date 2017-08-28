@@ -13,7 +13,7 @@
 
         date_default_timezone_set('America/New_York');
         $currentTime = time();
-        $dateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
+        $dateTime = strftime("%m-%d-%Y %I:%M %p",$currentTime);
 
         $author = $_SESSION["Username"];
         $image = $_FILES["Image"]['name'];

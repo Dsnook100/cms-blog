@@ -11,7 +11,7 @@
 
         date_default_timezone_set('America/New_York');
         $currentTime = time();
-        $dateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
+        $dateTime = strftime("%m-%d-%Y %I:%M %p",$currentTime);
 
         $author = $_SESSION["Username"];
 
@@ -63,7 +63,7 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label for="categoryname"><span class="fieldInfo">Name:</span></label>
-                                    <input class="form-control" type="text" name="Category" id="categoryname" placeholder="Name">
+                                    <input class="form-control" type="text" name="Category" id="categoryname" placeholder="Category Name">
                                 </div>
                                 <br>
                                 <input class="btn btn-success btn-block" type="Submit" name="Submit" value="Add New Category">
@@ -78,6 +78,7 @@
                                 <th>Date & Time</th>
                                 <th>Category Name</th>
                                 <th>Creator Name</th>
+                                <th>Action</th>
                             </tr>
                             <?php
                                 global $connection;
@@ -100,6 +101,7 @@
                                 <td><?php echo $dateTime; ?></td>
                                 <td><?php echo $categoryName; ?></td>
                                 <td><?php echo $creatorName; ?></td>
+                                <td><a href="deletecategory.php?id=<?php echo $id ?>"><span class="btn btn-danger">Delete</span></a></td>
                             </tr>  
                             <?php } ?>     
                         </table>

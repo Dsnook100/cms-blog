@@ -13,7 +13,7 @@
 
         date_default_timezone_set('America/New_York');
         $currentTime = time();
-        $dateTime = strftime("%B-%d-%Y %H:%M:%S",$currentTime);
+        $dateTime = strftime("%m-%d-%Y %I:%M %p",$currentTime);
 
         $image = $_FILES["Image"]['name'];
         $storeFile = "uploads/". basename($_FILES["Image"]['name']);
